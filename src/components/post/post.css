@@ -27,6 +27,22 @@
     border-radius: 50%;
     object-fit: cover;
   }
+
+
+  .postTopRight{
+    cursor: pointer;
+  }
+
+  
+
+  .postRight{
+    cursor: pointer;
+    margin-right: -400px;
+  }
+
+  .postRight:hover{
+    color: crimson;
+  }
   
   .postUsername {
     font-size: 15px;

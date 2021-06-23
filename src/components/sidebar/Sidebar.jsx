@@ -1,5 +1,7 @@
 import React from 'react'
 import './sidebar.css'
+import { Users } from "../../dummyData";
+import CloseFriend from "../closeFriend/CloseFriend";
 
 import {
     RssFeed,
@@ -51,60 +53,9 @@ export default function Sidebar() {
           <hr className="sidebarHr" />
 
           <ul className="sidebarFriendList">
-              <li className="sidebarFriend">
-                  <img src="/assets/person/2.png" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Shubham Gupta</span>
-              </li>
-
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/3.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Charanpreet Singh</span>
-              </li>
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/5.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Manoranjan Padhi</span>
-              </li>
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/6.png" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Shubham Kesri</span>
-              </li>
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/7.png" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Bittu</span>
-              </li>
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/8.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Sayan Sarkar</span>
-              </li>
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/9.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Gagandeep Singh</span>
-              </li>
-
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/10.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Tarun Narula</span>
-              </li>
-
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/3.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Jaskirat Singh</span>
-              </li>
-
-              <li className="sidebarFriend">
-                  <img src="/assets/person/5.jpg" alt="" className="sidebarFriendImg" />
-                  <span className="sidebarFriendName">Harmanpal Singh</span>
-              </li>
-
-
+          {Users.map((u) => (
+            <CloseFriend key={u.id} user={u} />
+          ))}
 
           </ul>
          

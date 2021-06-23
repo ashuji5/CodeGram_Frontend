@@ -1,42 +1,77 @@
 import React from 'react'
 import './share.css'
-
-import {PermMedia, Label,Room, EmojiEmotions} from "@material-ui/icons"
+import { useState, useEffect } from 'react';
+import FileBase64 from 'react-file-base64';
+import { PermMedia } from "@material-ui/icons"
+import { useDispatch } from 'react-redux';
+import { createPost, editPost, updatePost } from '../../redux/actions/posts';
+import { useSelector } from 'react-redux';
 
 export default function Share() {
+
+  const [postData, setPostData] = useState({ message: '', creator: 'Ashu', selectedFile: '' });
+  const dispatch = useDispatch();
+
+  const postId = useSelector(state => state.postReducer.currentPostId);
+  const post = useSelector((state) => (postId ? state.postReducer.posts.find((message) => message._id === postId) : null));
+  console.log(postId)
+  console.log(postData);
+
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (postId != null) {
+      dispatch(updatePost(postId, postData));
+    }
+
+    else
+      dispatch(createPost(postData))
+
+    setPostData({ message: '', selectedFile: '' });
+    
+  };
+
+
   return (
     <div className="share">
-      <div className="shareWrapper">
-        <div className="shareTop">
-          <img className="shareProfileImg" src="/assets/person/4.jpg" alt="" />
-          <input
-            placeholder="What's in your mind Safak?"
-            className="shareInput"
-          />
-        </div>
-        <hr className="shareHr"/>
-        <div className="shareBottom">
+      <form onSubmit={handleSubmit}>
+        <div className="shareWrapper">
+          <div className="shareTop">
+            
+            
+
+            <img className="shareProfileImg" src="/assets/person/4.jpg" alt="" />
+            <input type="text"
+              name="message"
+              placeholder="What's in your mind Safak?"
+              value={postData.message}
+              onChange={(e) => setPostData({ ...postData, message: e.target.value })}
+              className="shareInput"
+            />
+            
+            
+          </div>
+          <hr className="shareHr" />
+          <div className="shareBottom">
             <div className="shareOptions">
-                <div className="shareOption">
-                    <PermMedia htmlColor="tomato" className="shareIcon"/>
-                    <span className="shareOptionText">Choose a photo </span>
-                </div>
-                {/* <div className="shareOption">
-                    <Label htmlColor="blue" className="shareIcon"/>
-                    <span className="shareOptionText">Tag</span>
-                </div>
-                <div className="shareOption">
-                    <Room htmlColor="green" className="shareIcon"/>
-                    <span className="shareOptionText">Location</span>
-                </div>
-                <div className="shareOption">
-                    <EmojiEmotions htmlColor="goldenrod" className="shareIcon"/>
-                    <span className="shareOptionText">Feelings</span>
-                </div> */}
+              <div className="shareOption">
+                <PermMedia htmlColor="tomato" className="shareIcon" />
+
+                 <div  className="selectFile">
+                 <FileBase64 type="file" className="shareOptionText" value={postData.selectedFile} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+
+                 </div>
+              </div>
+
             </div>
-            <button className="shareButton">Share</button>
+            <button type="submit" className="shareButton">Share</button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
