@@ -1,6 +1,32 @@
 import "./login.css";
+import {useDispatch} from 'react-redux';
+import {useState} from 'react';
+import { Link, useHistory } from "react-router-dom";
 
 export default function Login() {
+
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const inState = {name : "", email : "", password: ""};
+  const[formData, setformData] = useState(inState);
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  // dispatch(signin(formData, history));
+
+  
+  }
+
+  const handleChange = (e) => {
+    setformData({...formData, [e.target.name] : e.target.value})
+}
+
+
+
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -16,15 +42,32 @@ export default function Login() {
             Connect with friends and the world around you on CodeGram.
           </span>
           </div>
-          <div className="loginBox">
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
-            <button className="loginButton">Log In</button>
-            <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
+          <form onSubmit = {handleSubmit} className="loginBox">
+            <input
+            type = "text"
+             name = "name"
+             onChange = {handleChange}
+             placeholder="Name" 
+             className="loginInput" />
+
+            <input 
+            type = "email"
+             name = "email"
+             onChange = {handleChange}
+            placeholder="Email" 
+            className="loginInput" />
+
+            <input
+            type = "password"
+             name = "password"
+             onChange = {handleChange}
+             placeholder="Enter your password" 
+            className="loginInput" />
+            <button type="submit" className="loginButton">Log In</button>
+            <Link  style={{ textDecoration: 'none' }} className="loginRegisterButton " to = "/register">
               Create a New Account
-            </button>
-          </div>
+            </Link>
+          </form>
         </div>
       </div>
     </div>
