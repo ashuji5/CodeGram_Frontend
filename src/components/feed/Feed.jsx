@@ -1,17 +1,24 @@
 import React from 'react'
+import {useEffect} from 'react';
 import Share from '../share/Share';
 import Post from '../post/Post';
 import './feed.css';
-import { Posts } from "../../dummyData";
-import {useSelector} from 'react-redux';
+import {findPostById} from '../../redux/actions/posts';
+import {useSelector, useDispatch} from 'react-redux';
 
 
-function Feed({profile}) {
+function Feed() {
 
     const posts = useSelector(state => state.postReducer.posts);
-     const loading = useSelector(state => state.postReducer.loading);  
+     const loading = useSelector(state => state.postReducer.loading);
+     const user = JSON.parse(localStorage.getItem('profile'));  
+     const userPost = useSelector(state => state.postReducer.profilePost);
+     console.log(userPost);
+     console.log(user.result._id);
 
 
+     
+  
 
      if(loading){
          return(
@@ -23,20 +30,22 @@ function Feed({profile}) {
 
    
      else{
+
+      
      return (
         <>
         <div className="feed">
             <div className="feedWrapper">
             <Share/>
             {posts.map((p) => (
-          <Post key={p._id} post={p} profile = {profile} />
+          <Post key={p._id} post={p}/>
         ))}
 
             </div>
         </div>
         </>
-    )
-            }
+    )}
+            
 }
 
 export default Feed

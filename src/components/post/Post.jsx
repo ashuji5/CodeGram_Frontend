@@ -29,7 +29,7 @@ export default function Post({ post, profile }) {
               alt=""
             />
             <span className="postUsername">
-              {post.creator}
+              {post.name}
             </span>
             <span className="postDate">{post.createdAt}</span>
           </div>
@@ -56,7 +56,7 @@ export default function Post({ post, profile }) {
           <div className="postBottomLeft">
             <img className="likeIcon" src="assets/like.png" onClick={() => { dispatch(likePost(post._id)) }} alt="" />
 
-            <span className="postLikeCounter">{post.likeCount} people like it</span>
+            <span className="postLikeCounter">{post.likes.length} people like it</span>
           </div>
           <div className="postBottomRight">
             <Comment className="commentIcon" />

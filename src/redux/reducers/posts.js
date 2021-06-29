@@ -2,6 +2,7 @@ import * as actiontypes from '../actiontypes/actiontypes';
 
 const instate = {
     posts: [], 
+    profilePost : [],
     currentPostId : null,
     loading: true,
     error: " ",
@@ -20,6 +21,7 @@ const postReducer = (state = instate, action) => {
 
         case actiontypes.GET_POSTS_SUCCESS:
             return {
+                profilePost : state.profilePost,
                 loading: false,
                 currentPostId : null,
                 posts: action.payload
@@ -59,6 +61,9 @@ const postReducer = (state = instate, action) => {
         
         case actiontypes.DELETE_POST : 
         return {...state, posts : state.posts.filter((post) => post._id !== action.payload)}
+
+        case actiontypes.POSTBYID : 
+        return { ...state, profilePost : action.payload}
         
 
         default:

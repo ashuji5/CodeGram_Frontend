@@ -2,6 +2,7 @@ import "./register.css";
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import { Link, useHistory } from "react-router-dom";
+import {signup} from "../../redux/actions/authaction";
 
 export default function Register() {
 
@@ -14,7 +15,7 @@ export default function Register() {
     const handleSubmit = (e) => {
     e.preventDefault();
 
-    // dispatch(signup(formData, history));
+     dispatch(signup(formData, history));
     
     }
 

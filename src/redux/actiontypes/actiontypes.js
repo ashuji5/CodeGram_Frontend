@@ -10,3 +10,4 @@ export const DELETE_POST = "DELETE_POST";
 export const LIKE = "LIKE";
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
+export const POSTBYID = "POSTBYID";

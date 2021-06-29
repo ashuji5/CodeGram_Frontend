@@ -20,4 +20,5 @@ export const deletePost = (id) => API.delete(`${url}/${id}`);
 export const likePost = (id) => API.patch(`${url}/${id}/likePost`);
 export const signIn = (formData) => API.post('/signin', formData);
 export const signUp = (formData) => API.post('/signup', formData);
+export const getPostById = (id) => API.get(`${url}/${id}`);
 

@@ -2,6 +2,7 @@ import "./login.css";
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import { Link, useHistory } from "react-router-dom";
+import {signin} from "../../redux/actions/authaction";
 
 export default function Login() {
 
@@ -15,7 +16,7 @@ export default function Login() {
   const handleSubmit = (e) => {
   e.preventDefault();
 
-  // dispatch(signin(formData, history));
+   dispatch(signin(formData, history));
 
   
   }

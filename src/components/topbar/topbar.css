@@ -86,3 +86,15 @@
      object-fit :cover; 
     cursor: pointer;
   }
+
+  .right-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    justify-content: space-between;
+  }
+
+  .logout{
+    cursor: pointer;
+  }

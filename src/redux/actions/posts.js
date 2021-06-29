@@ -115,3 +115,25 @@ export const likePost = (id) => async(dispatch) => {
         
     }
 }
+
+export const findPostById = (id) => async(dispatch) => {
+    try {
+
+        dispatch({
+            type: actiontypes.GET_POSTS_REQUEST
+        });
+
+        const {data} = await api.getPostById(id);
+
+        dispatch({
+            type : actiontypes.POSTBYID,
+            payload : data
+        })
+
+        
+    } catch (error) {
+
+        console.log(error);
+        
+    }
+}

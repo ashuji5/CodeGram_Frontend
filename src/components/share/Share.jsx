@@ -9,11 +9,12 @@ import { useSelector } from 'react-redux';
 
 export default function Share() {
 
-  const [postData, setPostData] = useState({ message: '', creator: 'Ashu', selectedFile: '' });
+  const [postData, setPostData] = useState({ message: '', selectedFile: '' });
   const dispatch = useDispatch();
 
   const postId = useSelector(state => state.postReducer.currentPostId);
   const post = useSelector((state) => (postId ? state.postReducer.posts.find((message) => message._id === postId) : null));
+  const user = JSON.parse(localStorage.getItem('profile'));
   console.log(postId)
   console.log(postData);
 
@@ -25,11 +26,11 @@ export default function Share() {
     e.preventDefault();
 
     if (postId != null) {
-      dispatch(updatePost(postId, postData));
+      dispatch(updatePost(postId, {...postData, name : user?.result?.name}));
     }
 
     else
-      dispatch(createPost(postData))
+      dispatch(createPost({...postData, name : user?.result?.name}))
 
     setPostData({ message: '', selectedFile: '' });
     
