@@ -6,41 +6,20 @@ import {BrowserRouter, Redirect, Route, Switch, useHistory}  from 'react-router-
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPosts} from '../src/redux/actions/posts';
-import decode from 'jwt-decode';
 
 
 function App() {
 
-  const post = useSelector(state => state.postReducer.posts);
+  
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const logout = () =>{
-
-    dispatch({
-      type : 'LOGOUT',
-
-    })
-
-    history.push('/');
-
-
-  }
-
-  useEffect(() =>{
-
-    const token = user?.token;
-
-    if(token){
-      const decodedToken = decode(token);
-
-      if(decodedToken.exp * 1000 < new Date().getTime()) logout();
-
-    }
-
-   dispatch(getPosts());
+  useEffect(() => {
+    dispatch(getPosts());
   },[dispatch]);
+
+  
 
   return (
 

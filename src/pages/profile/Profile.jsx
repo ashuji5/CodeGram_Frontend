@@ -3,9 +3,51 @@ import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import ProfileFeed from "../../components/feed/ProfileFeed";
 import Rightbar from "../../components/rightbar/Rightbar";
+import {useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom'
+import {useEffect} from 'react';
+import decode from 'jwt-decode';
+import {getPosts} from '../../redux/actions/posts';
+
+
 
 export default function Profile() {
-  return (
+
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+    const dispatch = useDispatch();
+  const history = useHistory();
+
+    const logout = () =>{
+
+        dispatch({
+          type : 'LOGOUT',
+    
+        })
+    
+        history.push('/');
+    
+    
+      }
+    
+      useEffect(() =>{
+    
+        const token = user?.token;
+    
+        if(token){
+          const decodedToken = decode(token);
+    
+          if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+
+        }
+
+        dispatch(getPosts());
+
+      },[dispatch]);
+
+
+
+  return ( 
     <>
       <Topbar />
       <div className="profile">

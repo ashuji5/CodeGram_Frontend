@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import FileBase64 from 'react-file-base64';
 import { PermMedia } from "@material-ui/icons"
 import { useDispatch } from 'react-redux';
-import { createPost, editPost, updatePost } from '../../redux/actions/posts';
+import { createPost, editPost, updatePost, getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
 export default function Share() {
@@ -12,8 +12,8 @@ export default function Share() {
   const [postData, setPostData] = useState({ message: '', selectedFile: '' });
   const dispatch = useDispatch();
 
-  const postId = useSelector(state => state.postReducer.currentPostId);
-  const post = useSelector((state) => (postId ? state.postReducer.posts.find((message) => message._id === postId) : null));
+  const postId = useSelector(state => state.userPostReducer.currentPostId);
+  const post = useSelector((state) => (postId ? state.userPostReducer.profilePost.find((message) => message._id === postId) : null));
   const user = JSON.parse(localStorage.getItem('profile'));
   console.log(postId)
   console.log(postData);
@@ -29,8 +29,12 @@ export default function Share() {
       dispatch(updatePost(postId, {...postData, name : user?.result?.name}));
     }
 
-    else
-      dispatch(createPost({...postData, name : user?.result?.name}))
+    else{
+      dispatch(createPost({...postData, name : user?.result?.name}));
+      
+    }
+
+    dispatch(getPosts());
 
     setPostData({ message: '', selectedFile: '' });
     

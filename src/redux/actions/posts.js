@@ -2,6 +2,9 @@
 import * as api from '../../api/index';
 import * as actiontypes from '../actiontypes/actiontypes'
 
+
+
+
 export const getPosts = () => async(dispatch) => {
 
     try {
@@ -37,6 +40,8 @@ export const createPost=(post) => async(dispatch) =>{
             type: actiontypes.CREATE_POST,
             payload : data
         });
+
+
         
     } catch (error) {
 
@@ -119,9 +124,9 @@ export const likePost = (id) => async(dispatch) => {
 export const findPostById = (id) => async(dispatch) => {
     try {
 
-        dispatch({
-            type: actiontypes.GET_POSTS_REQUEST
-        });
+        // dispatch({
+        //     type: actiontypes.GET_POSTS_REQUEST
+        // });
 
         const {data} = await api.getPostById(id);
 
@@ -136,4 +141,25 @@ export const findPostById = (id) => async(dispatch) => {
         console.log(error);
         
     }
+}
+
+export const postComment = (postID, comment) => async(dispatch) =>{
+
+    try {
+
+       
+        
+        const {data} = await api.createComment(postID, comment);
+
+        // dispatch({
+        //     type : actiontypes.CREATE_COMMENT,
+        //     payload : data
+        //         })
+
+    } catch (error) {
+
+        console.log(error)
+        
+    }
+
 }

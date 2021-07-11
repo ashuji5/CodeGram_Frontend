@@ -1,23 +1,61 @@
 import "./post.css";
 import { MoreVert, Comment, Delete } from "@material-ui/icons";
 import { Users } from "../../dummyData";
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { editPost, deletePost, likePost } from '../../redux/actions/posts'
+import { editPost, deletePost, likePost, postComment, getPosts } from '../../redux/actions/posts'
+import { createComment } from "../../api";
+import Comments from '../post/Comment';
 
 
 export default function Post({ post, profile }) {
-  const [like, setLike] = useState(post.like)
-  const [isLiked, setIsLiked] = useState(false)
+
+
+  const [comment, setComment] = useState({ content: '' });
+
+
+  console.log(comment)
 
   const dispatch = useDispatch();
 
+  const showComment = () => {
 
 
-  const likeHandler = () => {
-    setLike(isLiked ? like - 1 : like + 1)
-    setIsLiked(!isLiked)
+    var cm = document.querySelectorAll(".cmnt");
+
+    // var cm = document.getElementById('cmnt')
+
+    // console.log(cm);
+
+     cm.forEach(x => {
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+     })
+
+    // if (cm.style.display === "none") {
+    //   cm.style.display = "block";
+    // } else {
+    //   cm.style.display = "none";
+    // }
+
   }
+
+  const createComment = async(postId) => {
+
+    console.log("it clicked");
+
+    await dispatch(postComment(postId, comment));
+    dispatch(getPosts());
+
+    setComment({ content: " " })
+
+  }
+
+
+
   return (
     <div className="post">
       <div className="postWrapper">
@@ -43,7 +81,7 @@ export default function Post({ post, profile }) {
           {profile ? <div onClick={() => dispatch(editPost(post._id))} className="postTopRight">
             <MoreVert />
           </div>
-           : <div></div>}
+            : <div></div>}
 
 
 
@@ -58,10 +96,36 @@ export default function Post({ post, profile }) {
 
             <span className="postLikeCounter">{post.likes.length} people like it</span>
           </div>
-          <div className="postBottomRight">
+          <div onClick={showComment} className="postBottomRight">
             <Comment className="commentIcon" />
-            <span className="postCommentText">{post.comment} comments</span>
+            <span className="postCommentText"> comments</span>
           </div>
+
+        </div>
+        <div id="cmnt" className="cmnt comment">
+
+          <section id="app">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                 {post.comment.map((c) => (
+                  <Comments
+                  key = {c._id}
+                  comment = {c}
+                  />
+                 ))}
+                </div>
+              </div>
+              <div class="row">
+                <div className="cmnt-input">
+                  <input type="text" class="input" placeholder="Write a comment" value={comment.content} onChange={(e) => setComment({ ...comment, content: e.target.value })}
+                  />
+                  <button className='primaryContained float-right' onClick = {() => createComment(post._id)}>Add Comment</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
         </div>
       </div>
     </div>

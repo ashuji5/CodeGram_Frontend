@@ -11,7 +11,7 @@ import {useSelector, useDispatch} from 'react-redux';
 const ProfileFeed = ({profile}) =>{
 
     const user = JSON.parse(localStorage.getItem('profile'));  
-    const userPost = useSelector(state => state.postReducer.profilePost);
+    const userPost = useSelector(state => state.userPostReducer.profilePost);
     const loading = useSelector(state => state.postReducer.loading);
     const dispatch = useDispatch();
 
