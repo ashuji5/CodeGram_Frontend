@@ -1,14 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './topbar.css';
 import {useHistory} from 'react-router-dom'
 import {useDispatch} from 'react-redux';
 import {LOGOUT} from '../../redux/actiontypes/actiontypes'
 import { Search, Home, Chat, DeveloperMode, ExitToApp } from "@material-ui/icons";
+import {getGuest} from '../../redux/actions/posts';
 
 export default function Topbar() {
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [coder, setCoder] = useState({name : " "});
+
+  console.log(coder);
 
   const logout = () =>{
 
@@ -22,6 +27,13 @@ export default function Topbar() {
 
   }
 
+  const gettingGuest = () => {
+    console.log(coder);
+    dispatch(getGuest(coder.name));
+    setCoder({name : ""});
+    history.push('/guest/profile');
+  }
+
 
   return (
     <div className="topbarContainer">
@@ -30,12 +42,23 @@ export default function Topbar() {
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
-          <Search className="searchIcon" />
+        
+
           <input
-            placeholder="Search for friend, post or video"
+          type = "text"
+            placeholder="Search for friend"
             className="searchInput"
+            value = {coder.name}
+            onChange={(e) => setCoder({ ...coder, name: e.target.value })}
           />
+           
+        <div onClick = {gettingGuest} className="srchButton" >
+        <Search className="searchIcon"  />
         </div>
+          
+        </div>
+
+        
       </div>
       <div className="topbarRight">
        

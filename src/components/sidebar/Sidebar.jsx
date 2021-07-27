@@ -1,12 +1,14 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './sidebar.css'
 import { Users } from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
+import {useDispatch, useSelector} from 'react-redux';
+import {getFriends} from '../../redux/actions/authaction'
 
 import {
     RssFeed,
     Chat,
-    ExitToApp,
+    ExitToApp, 
     Person,
     Group,
     Code
@@ -15,6 +17,19 @@ import {
 
 
 export default function Sidebar() {
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+
+  const friend = useSelector(state => state.userPostReducer.friends);
+
+  console.log(friend);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+   dispatch(getFriends(user.result._id))
+  },[dispatch]);
+
     return (
       <div className="sidebar">
         <div className="sidebarWrapper">
@@ -53,8 +68,8 @@ export default function Sidebar() {
           <hr className="sidebarHr" />
 
           <ul className="sidebarFriendList">
-          {Users.map((u) => (
-            <CloseFriend key={u.id} user={u} />
+          {friend?.map((u) => (
+            <CloseFriend key={u._id} user={u} />
           ))}
 
           </ul>

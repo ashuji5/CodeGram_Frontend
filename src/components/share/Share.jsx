@@ -15,8 +15,8 @@ export default function Share() {
   const postId = useSelector(state => state.userPostReducer.currentPostId);
   const post = useSelector((state) => (postId ? state.userPostReducer.profilePost.find((message) => message._id === postId) : null));
   const user = JSON.parse(localStorage.getItem('profile'));
-  console.log(postId)
-  console.log(postData);
+  // console.log(postId)
+  // console.log(postData);
 
   useEffect(() => {
     if (post) setPostData(post);

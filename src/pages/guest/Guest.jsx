@@ -1,20 +1,37 @@
-import "./profile.css";
+import React from 'react'
+import {useSelector} from 'react-redux';
+
+import "../profile/profile.css";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import ProfileFeed from "../../components/feed/ProfileFeed";
+import GuestFeed from "../../components/feed/GuestFeed";
 import Rightbar from "../../components/rightbar/Rightbar";
+import GuestRightbar from '../../components/guestRightbar/GuestRightbar';
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import {useEffect} from 'react';
 import decode from 'jwt-decode';
-import {getPosts} from '../../redux/actions/posts'; 
+import {findGuestPostById} from '../../redux/actions/posts'; 
+
+const Guest = () => {
 
 
+  const guest = useSelector(state => state.guestReducer.guest)
+  
 
-export default function Profile() {
+    const loading = useSelector(state => state.guestReducer.loading);
+     console.log(guest);
+    // console.log(loading);
+
+    const pokemon = useSelector(state => state.authreducer.user);
+
+    console.log(pokemon.result.followers);
+
+    
 
 
-  const user = JSON.parse(localStorage.getItem('profile'));
+    // console.log(guest[0]._id)
+    const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
   const history = useHistory();
 
@@ -41,11 +58,13 @@ export default function Profile() {
 
         }
 
-        dispatch(getPosts());
+       
+        // dispatch(findGuestPostById(guest?guest[0]._id: null));
 
-      },[dispatch]);
+      },[guest]);
 
 
+      if(loading== false){
 
   return ( 
     <>
@@ -72,11 +91,25 @@ export default function Profile() {
             </div>
           </div>
           <div className="profileRightBottom">
-            <ProfileFeed profile/>
-            <Rightbar profile/>
+            <div className="feed">
+            <GuestFeed />
+            </div>
+            <GuestRightbar/>
           </div>
         </div>
       </div>
     </>
   );
+      }
+
+      else{
+          return(
+              <>
+
+<h1>Loading</h1>
+              </>
+          )
+      }
 }
+
+export default Guest

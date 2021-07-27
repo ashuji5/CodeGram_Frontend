@@ -1,3 +1,9 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .profile{
     display: flex;
 }
@@ -9,6 +15,10 @@
 .profileCover{
     height: 320px;
     position: relative;
+}
+
+.feed{
+    margin-top: 25px;
 }
 
 .profileCoverImg{

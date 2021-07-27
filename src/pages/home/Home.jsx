@@ -30,9 +30,9 @@ const Home = () => {
     
       }
 
-      // useEffect(() => {
-      //   dispatch(getPosts());
-      // },[dispatch]);
+      useEffect(() => {
+        dispatch(getPosts());
+      },[dispatch]);
       
     
       useEffect(() =>{

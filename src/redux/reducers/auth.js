@@ -1,6 +1,12 @@
-import { AUTH, LOGOUT}  from "../actiontypes/actiontypes"
+import { AUTH, LOGOUT, FOLLOW, UNFOLLOW}  from "../actiontypes/actiontypes"
 
-export const authreducer = (state = {authdata : null}, action) => {
+const instate = {
+    user: null,
+    followers : [],
+    followings : []
+}
+
+export const authreducer = (state = instate, action) => {
 
     switch(action.type){
 
@@ -8,7 +14,7 @@ export const authreducer = (state = {authdata : null}, action) => {
         localStorage.setItem('profile', JSON.stringify({...action?.data}));
 
         return{
-            ...state, authdata : action?.data
+            ...state, user : action.data, followers : action.data.result.followers, followings : action.data.result.followings
         };
 
         case LOGOUT :
@@ -17,6 +23,16 @@ export const authreducer = (state = {authdata : null}, action) => {
             return{
                 ...state, authdata : null
             };
+
+        case FOLLOW :
+            return{
+                ...state, followings : [...state.followings, action.payload]
+            }    
+
+         case UNFOLLOW :
+            return{
+                    ...state, followings : state.followings.filter((following) => following!=action.payload)
+              }     
 
         default:
             return state;

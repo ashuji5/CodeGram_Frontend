@@ -14,7 +14,7 @@ export default function Post({ post, profile }) {
   const [comment, setComment] = useState({ content: '' });
 
 
-  console.log(comment)
+  // console.log(comment)
 
   const dispatch = useDispatch();
 

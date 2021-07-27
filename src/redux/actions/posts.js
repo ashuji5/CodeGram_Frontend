@@ -163,3 +163,42 @@ export const postComment = (postID, comment) => async(dispatch) =>{
     }
 
 }
+
+export const getGuest = (guestName) => async(dispatch) =>{
+    try {
+
+
+
+        const {data} = await api.getGuest(guestName);
+
+        dispatch({
+            type : actiontypes.SET_GUEST,
+            payload : data
+        })
+        
+    } catch (error) {
+        
+    }
+}
+
+export const findGuestPostById = (id) => async(dispatch) => {
+    try {
+
+        //   dispatch({
+        //     type: actiontypes.GUEST_POST_REQUEST
+        // });
+
+        const {data} = await api.getPostById(id);
+
+        dispatch({
+            type : actiontypes.GUEST_POST_SUCCESS,
+            payload : data
+        })
+
+        
+    } catch (error) {
+
+        console.log(error);
+        
+    }
+}

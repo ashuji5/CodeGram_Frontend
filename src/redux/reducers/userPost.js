@@ -4,6 +4,7 @@ const instate = {
     profilePost : [],
     currentPostId : null,
     loading: true,
+    friends : []
 
 }
 
@@ -42,6 +43,11 @@ const userPostReducer = (state = instate, action) => {
         
         case actiontypes.DELETE_POST : 
         return {...state, profilePost : state.profilePost.filter((post) => post._id !== action.payload)}
+
+        case "FRIENDS":
+            return{
+                ...state, friends : action.payload
+            }
 
         default:
             return state
