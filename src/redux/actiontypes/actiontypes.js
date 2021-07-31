@@ -17,3 +17,5 @@ export const GUEST_POST_REQUEST = "GUEST_POST_REQUEST";
 export const GUEST_POST_SUCCESS = "GUEST_POST_SUCCESS";
 export const FOLLOW = "FOLLOW";
 export const UNFOLLOW = "UNFOLLOW";
+export const GET_DOUBT = "GET_DOUBT"
+export const DOUBTBYID = "DOUBTBYID"

@@ -26,3 +26,7 @@ export const getGuest = (guestName) => API.get(`${url}/profile/${guestName}`);
 export const followUser = (userId) => API.put(`${url}/${userId}/follow`);
 export const unfollowUser = (userId) => API.put(`${url}/${userId}/unfollow`);
 export const userFriends = (userId) => API.get(`${url}/friends/${userId}`);
+export const fetchDoubts = () => API.get(`${url}/doubt`);
+export const fetcchDoubtById = (id) => API.get(`${url}/doubt/${id}`);
+export const createDoubt = (doubt) => API.post(`${url}/doubt`, doubt);
+export const postAnswer = (doubtId, doubtAnswer) => API.post(`${url}/doubt/${doubtId}`, doubtAnswer);

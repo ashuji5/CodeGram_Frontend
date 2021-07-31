@@ -1,8 +1,68 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {SportsEsports, LiveHelp, Help} from "@material-ui/icons";
+import {useEffect} from 'react';
+import {getDoubt, createDoubt} from '../../redux/actions/doubtAction';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
+import decode from 'jwt-decode';
+
 import './doubt.css';
 
 const DoubtGround = () =>{
+
+    const user = JSON.parse(localStorage.getItem('profile'));
+
+    const [doubtData, setDoubttData] = useState({ Question : '' });
+
+
+    // console.log(doubtData);
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const logout = () =>{
+
+        dispatch({
+          type : 'LOGOUT',
+    
+        })
+    
+        history.push('/');
+    
+    
+      }
+
+    const postDoubt = (e) =>{
+     e.preventDefault();
+
+     console.log(doubtData);
+
+     dispatch(createDoubt(doubtData));
+
+     setDoubttData({Question : ''});
+    }
+
+    useEffect(() => {
+        dispatch(getDoubt())
+       },[dispatch]);
+
+
+       useEffect(() =>{
+    
+        const token = user?.token;
+    
+        if(token){
+          const decodedToken = decode(token);
+    
+          if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+
+
+        }
+
+
+
+      },[dispatch]);
+
     return(
         <>
         <div className="mainDiv">
@@ -26,8 +86,10 @@ const DoubtGround = () =>{
             <input 
             type="text"
             placeholder = "Ask a Question"
+            value={doubtData.Question}
+              onChange={(e) => setDoubttData({ ...doubtData, Question: e.target.value })}
              />
-                         <button>Ask</button>
+                         <button onClick = {postDoubt}>Ask</button>
         </div>
         </div>
         

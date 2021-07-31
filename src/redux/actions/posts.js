@@ -3,7 +3,7 @@ import * as api from '../../api/index';
 import * as actiontypes from '../actiontypes/actiontypes'
 
 
-
+ 
 
 export const getPosts = () => async(dispatch) => {
 
