@@ -22,7 +22,8 @@ export default function Share() {
     if (post) setPostData(post);
   }, [post]);
 
-  const handleSubmit = (e) => { 
+  const handleSubmit = (e) => {
+    console.log();
     e.preventDefault();
 
     if (postId != null) {
